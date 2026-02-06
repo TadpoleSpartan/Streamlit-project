@@ -1,0 +1,130 @@
+{
+    "categories": {
+        "Netherlands Geography": [
+            {
+                "id": 1,
+                "question": "What is the capital of the Netherlands?",
+                "options": ["The Hague", "Amsterdam", "Rotterdam", "Utrecht"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 2,
+                "question": "Which country does the Netherlands share its longest land border with?",
+                "options": ["Belgium", "France", "Germany", "Denmark"],
+                "correct": 2,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 3,
+                "question": "What is the largest city in the Netherlands by area?",
+                "options": ["Amsterdam", "Rotterdam", "Utrecht", "The Hague"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 4,
+                "question": "The Netherlands is located in which part of Europe?",
+                "options": ["Southern", "Northern", "Northwestern", "Central"],
+                "correct": 2,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 5,
+                "question": "What percentage of the Netherlands lies below sea level?",
+                "options": ["About 15%", "About 26%", "About 40%", "About 50%"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20
+            }
+        ],
+        "Dutch Culture & History": [
+            {
+                "id": 1,
+                "question": "Where did the famous Dutch painter Vincent van Gogh live during his most productive period?",
+                "options": ["Amsterdam", "The Hague", "Utrecht", "Arles, France"],
+                "correct": 3,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 2,
+                "question": "What is the traditional Dutch holiday where children leave out wooden shoes for gifts?",
+                "options": ["Sinterklaas", "Koningsdag", "Prinsjesdag", "Bevrijdingsdag"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 3,
+                "question": "What iconic Dutch delicacy consists of fried battered fish?",
+                "options": ["Patat", "Bitterballen", "Kibbeling", "Stroopwafel"],
+                "correct": 2,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 4,
+                "question": "In what year did the Netherlands gain independence from Spain?",
+                "options": ["1568", "1588", "1648", "1688"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 5,
+                "question": "What is the primary mode of transportation in Dutch cities?",
+                "options": ["Cars", "Bicycles", "Trains", "Trams"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            }
+        ],
+        "Famous Dutch People": [
+            {
+                "id": 1,
+                "question": "Which Dutch footballer won the Ballon d'Or three times in the 1970s?",
+                "options": ["Dennis Bergkamp", "Johan Cruyff", "Marco van Basten", "Ruud Gullit"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 2,
+                "question": "Who was the Dutch philosopher known for his rationalist philosophy and the phrase 'Cogito ergo sum'?",
+                "options": ["Spinoza", "Erasmus", "Descartes", "Locke"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 3,
+                "question": "Which Dutch painter is famous for 'The Girl with a Pearl Earring'?",
+                "options": ["Rembrandt", "Jan Vermeer", "Frans Hals", "Albert Cuyp"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 4,
+                "question": "Who is the current King of the Netherlands as of 2024?",
+                "options": ["Willem-Alexander", "Willem IV", "Frederik", "Beatrix"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 5,
+                "question": "Which Dutch explorer founded New Amsterdam (now New York) in North America?",
+                "options": ["Willem Janszoon", "Henry Hudson", "Abel Tasman", "Bartolomeu Dias"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20
+            }
+        ]
+    }
+}
