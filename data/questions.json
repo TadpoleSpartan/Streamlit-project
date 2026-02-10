@@ -7,7 +7,8 @@
                 "options": ["The Hague", "Amsterdam", "Rotterdam", "Utrecht"],
                 "correct": 1,
                 "difficulty": "easy",
-                "points": 10
+                "points": 10,
+                "explanation": "Amsterdam is the capital and largest city of the Netherlands, known for its canals, museums, and vibrant culture."
             },
             {
                 "id": 2,
