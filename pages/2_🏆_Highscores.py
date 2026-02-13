@@ -5,152 +5,197 @@ import pandas as pd
 
 st.set_page_config(page_title="Highscores - Netherlands QuizMaster", page_icon="🏆")
 
-# Custom CSS
-st.markdown("""
-    <style>
-    .trophy-header {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        color: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-    .fun-stat {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        text-align: center;
-        font-weight: bold;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown('<div class="trophy-header">🏆 HALL OF FAME 🏆</div>', unsafe_allow_html=True)
-st.markdown("### 🇳🇱 Netherlands Quiz Champions!")
-
-DATA_DIR = Path(__file__).parent.parent / "data"
+ROOT = Path(__file__).parent.parent
+DATA_DIR = ROOT / "data"
 HIGHSCORES_FILE = DATA_DIR / "highscores.json"
 
+
+def load_css():
+    css_path = ROOT / "assets" / "styles.css"
+    if css_path.exists():
+        st.markdown(f"<style>{css_path.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
+
+
 def load_highscores():
-    """Load highscores from JSON file."""
     if HIGHSCORES_FILE.exists():
         with open(HIGHSCORES_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             return data.get("scores", [])
     return []
 
+
+load_css()
+st.markdown('<h1 style="margin-bottom: 8px; font-weight: 600;">Leaderboard</h1>', unsafe_allow_html=True)
+
 scores = load_highscores()
 
-if scores:
-    # Convert to DataFrame for nice display
-    df = pd.DataFrame(scores)
+# Check if user is logged in
+if "player_name" not in st.session_state or not st.session_state.player_name:
+    st.info("👤 Login on the Home page to track your scores!")
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Go to Home", use_container_width=True):
+            st.switch_page("Home.py")
+else:
+    player_name = st.session_state.player_name
     
-    # Format the date column
-    if "date" in df.columns:
-        df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d %H:%M")
+    # Tabs for global and personal leaderboard
+    tab1, tab2 = st.tabs(["Global Leaderboard", "My Stats"])
     
-    # Rename columns for display
-    df = df.rename(columns={
-        "name": "Player",
-        "score": "Score",
-        "category": "Category",
-        "correct_answers": "Correct",
-        "total_questions": "Total",
-        "date": "Date"
-    })
-    
-    # Add rank column
-    df.insert(0, "Rank", range(1, len(df) + 1))
-    
-    # Display with medals for top 3
-    def add_medal(rank):
-        medals = {1: "🥇", 2: "🥈", 3: "🥉"}
-        return medals.get(rank, f"#{rank}")
-    
-    df["Rank"] = df["Rank"].apply(add_medal)
-    
-    # Show top 3 in special way
-    st.markdown("---")
-    st.subheader("🌟 Top 3 Champions!")
-    
-    top_3_cols = st.columns(3)
-    for idx in range(min(3, len(scores))):
-        score = scores[idx]
-        medals = {0: "🥇", 1: "🥈", 2: "🥉"}
+    with tab1:
+        st.markdown('<p style="color: #6b7684; margin-bottom: 24px;">Top performers across all categories</p>', unsafe_allow_html=True)
         
-        with top_3_cols[idx]:
-            st.markdown(f"""
-            <div style='
-                background: linear-gradient(135deg, #FFD700, #FFA500);
-                padding: 1.5rem;
-                border-radius: 1rem;
-                text-align: center;
-                color: white;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            '>
-                <h2>{medals[idx]}</h2>
-                <h3>{score['name']}</h3>
-                <p style='font-size: 1.5rem; font-weight: bold;'>⭐ {score['score']} points</p>
-                <p>{score['category']}</p>
-                <p style='font-size: 0.9rem;'>✅ {score['correct_answers']}/{score['total_questions']}</p>
+        if scores:
+            df = pd.DataFrame(scores)
+            if "date" in df.columns:
+                df["date"] = pd.to_datetime(df["date"]).dt.strftime("%m/%d %H:%M")
+
+            df = df.rename(columns={
+                "name": "Player",
+                "score": "Score",
+                "category": "Category",
+                "correct_answers": "Correct",
+                "total_questions": "Total",
+                "date": "Date"
+            })
+
+            df.insert(0, "Rank", range(1, len(df) + 1))
+            medals = {1: "🥇", 2: "🥈", 3: "🥉"}
+            df["Rank"] = df["Rank"].apply(lambda r: medals.get(r, f"#{r}"))
+
+            st.markdown("---")
+            st.markdown("### Top Players")
+            top_3 = scores[:3]
+            cols = st.columns(3)
+            for i, s in enumerate(top_3):
+                with cols[i]:
+                    medal = medals.get(i+1, "")
+                    st.markdown(f"""
+                    <div style='background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 20px; text-align: center;'>
+                        <div style='font-size: 36px; margin-bottom: 12px;'>{medal}</div>
+                        <h3 style='margin: 0 0 8px 0; font-weight: 600; font-size: 16px;'>{s['name']}</h3>
+                        <p style='margin: 0 0 4px 0; color: var(--accent-light); font-size: 20px; font-weight: 700;'>{s['score']} pts</p>
+                        <p style='margin: 0; color: #6b7684; font-size: 12px;'>{s['category']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+            st.markdown("---")
+            st.markdown("### All Scores")
+            st.dataframe(df, use_container_width=True, hide_index=True)
+
+            st.markdown("---")
+            st.markdown("### Statistics")
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Total Games", len(scores))
+            with col2:
+                avg_score = sum(s["score"] for s in scores) / len(scores)
+                st.metric("Avg Score", f"{avg_score:.0f}")
+            with col3:
+                top_score = max(s["score"] for s in scores)
+                st.metric("Best Score", top_score)
+            with col4:
+                avg_accuracy = (sum(s["correct_answers"] for s in scores) / sum(s["total_questions"] for s in scores) * 100) if scores else 0
+                st.metric("Avg Accuracy", f"{avg_accuracy:.0f}%")
+        else:
+            st.markdown("""
+            <div style='background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 40px; text-align: center;'>
+                <div style='font-size: 36px; margin-bottom: 16px;'>🎮</div>
+                <h3 style='margin: 0 0 8px 0; font-weight: 600;'>No scores yet</h3>
+                <p style='margin: 0; color: #6b7684; font-size: 14px;'>Play a quiz to see your score on the leaderboard</p>
             </div>
             """, unsafe_allow_html=True)
+            
+            if st.button("Start Quiz", key="play_now_btn", use_container_width=True):
+                st.switch_page("Home.py")
     
-    st.markdown("---")
-    st.subheader("📊 Full Leaderboard")
-    
-    # Display as table
-    st.dataframe(
-        df,
-        use_container_width=True,
-        hide_index=True
-    )
-    
-    # Statistics
-    st.markdown("---")
-    st.subheader("📈 Netherlands Quiz Statistics")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.markdown(f'''
-        <div class="fun-stat">
-        📊<br>Total Games<br><h2>{len(scores)}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-    with col2:
-        avg_score = sum(s["score"] for s in scores) / len(scores)
-        st.markdown(f'''
-        <div class="fun-stat">
-        📈<br>Average Score<br><h2>{avg_score:.0f}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-    with col3:
-        top_score = max(s["score"] for s in scores)
-        st.markdown(f'''
-        <div class="fun-stat">
-        ⭐<br>Highest Score<br><h2>{top_score}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-    with col4:
-        avg_accuracy = (sum(s["correct_answers"] for s in scores) / sum(s["total_questions"] for s in scores) * 100) if scores else 0
-        st.markdown(f'''
-        <div class="fun-stat">
-        ✅<br>Avg Accuracy<br><h2>{avg_accuracy:.0f}%</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-
-else:
-    st.markdown('<div class="trophy-header">🎮 Be the First Legend! 🎮</div>', unsafe_allow_html=True)
-    st.markdown("### No champions yet! Your score could be here!")
-    st.info("📌 Play a quiz and you'll appear on this leaderboard!")
-    
-    if st.button("🎮 Play Now and Make History!", key="play_now"):
-        st.switch_page("Home.py")
+    with tab2:
+        st.markdown(f'<p style="color: #6b7684; margin-bottom: 24px;">Your personal quiz statistics</p>', unsafe_allow_html=True)
+        
+        # Filter scores for this player
+        player_scores = [s for s in scores if s.get("name") == player_name]
+        
+        if player_scores:
+            # Personal stats header
+            st.markdown("---")
+            st.markdown("### Your Best Performances")
+            
+            # Sort by score descending
+            sorted_scores = sorted(player_scores, key=lambda x: x.get("score", 0), reverse=True)
+            top_personal = sorted_scores[:3]
+            
+            cols = st.columns(3)
+            for i, s in enumerate(top_personal):
+                with cols[i]:
+                    medal = medals.get(i+1, "⭐") if i < 3 else "⭐"
+                    st.markdown(f"""
+                    <div style='background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 20px; text-align: center;'>
+                        <div style='font-size: 36px; margin-bottom: 12px;'>{medal}</div>
+                        <h3 style='margin: 0 0 8px 0; font-weight: 600; font-size: 16px;'>{s['category']}</h3>
+                        <p style='margin: 0 0 4px 0; color: var(--accent-light); font-size: 20px; font-weight: 700;'>{s['score']} pts</p>
+                        <p style='margin: 0; color: #6b7684; font-size: 12px;'>{s['correct_answers']}/{s['total_questions']} correct</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+            
+            # Personal statistics
+            st.markdown("---")
+            st.markdown("### Your Statistics")
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Games Played", len(player_scores))
+            with col2:
+                avg_score = sum(s.get("score", 0) for s in player_scores) / len(player_scores)
+                st.metric("Avg Score", f"{avg_score:.0f}")
+            with col3:
+                best_score = max(s.get("score", 0) for s in player_scores)
+                st.metric("Personal Best", best_score)
+            with col4:
+                total_correct = sum(s.get("correct_answers", 0) for s in player_scores)
+                total_questions = sum(s.get("total_questions", 0) for s in player_scores)
+                accuracy = (total_correct / total_questions * 100) if total_questions > 0 else 0
+                st.metric("Accuracy", f"{accuracy:.0f}%")
+            
+            # Scores by category
+            st.markdown("---")
+            st.markdown("### Scores by Category")
+            
+            from collections import defaultdict
+            category_stats = defaultdict(list)
+            for s in player_scores:
+                category_stats[s.get("category", "Unknown")].append(s)
+            
+            for category in sorted(category_stats.keys()):
+                cat_scores = category_stats[category]
+                best_cat_score = max(s.get("score", 0) for s in cat_scores)
+                avg_cat_score = sum(s.get("score", 0) for s in cat_scores) / len(cat_scores)
+                
+                st.markdown(f"""
+                <div style='background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 16px; margin-bottom: 12px;'>
+                    <h4 style='margin: 0 0 12px 0; font-weight: 600; font-size: 14px;'>{category}</h4>
+                    <div style='display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 12px;'>
+                        <div><span style='color: #6b7684;'>Attempts:</span> <strong>{len(cat_scores)}</strong></div>
+                        <div><span style='color: #6b7684;'>Best:</span> <strong style='color: var(--accent-light);'>{best_cat_score} pts</strong></div>
+                        <div><span style='color: #6b7684;'>Average:</span> <strong>{avg_cat_score:.0f} pts</strong></div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style='background: var(--card); border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; padding: 40px; text-align: center;'>
+                <div style='font-size: 36px; margin-bottom: 16px;'>📊</div>
+                <h3 style='margin: 0 0 8px 0; font-weight: 600;'>No scores yet</h3>
+                <p style='margin: 0; color: #6b7684; font-size: 14px;'>Start a quiz to build your statistics</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("Start Quiz", key="play_now_btn_2", use_container_width=True):
+                st.switch_page("pages/1_🎮_Quiz.py")
 
 st.markdown("---")
-if st.button("🏠 Back to Home", use_container_width=True):
-    st.switch_page("Home.py")
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("⌂ Home", use_container_width=True):
+        st.switch_page("Home.py")
+with col2:
+    if st.button("📚 Categories", use_container_width=True):
+        st.switch_page("pages/3_📚_Categories.py")

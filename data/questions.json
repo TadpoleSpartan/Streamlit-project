@@ -127,5 +127,134 @@
                 "points": 20
             }
         ]
+        "Dutch Food": [
+            {
+                "id": 1,
+                "question": "What is the name of the thin, caramel-filled waffle that is a popular Dutch treat?",
+                "options": ["Poffertjes", "Stroopwafel", "Boterkoek", "Speculaas"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10,
+                "explanation": "A stroopwafel is made of two thin waffles with a caramel-like syrup (stroop) in the middle."
+            },
+            {
+                "id": 2,
+                "question": "Which savory snack is a deep-fried, breadcrumb-covered meatball often enjoyed at Dutch bars?",
+                "options": ["Bitterballen", "Kroket", "Frikandel", "Kibbeling"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 3,
+                "question": "What is 'Haring' in the Netherlands typically served with?",
+                "options": ["Raw onions", "Mustard", "Sauerkraut", "Mayonnaise"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15,
+                "explanation": "Dutch herring (haring) is often eaten raw with chopped onions and sometimes pickles."
+            },
+            {
+                "id": 4,
+                "question": "What are 'Poffertjes'?",
+                "options": ["Mini pancakes", "Savory fritters", "Sugar-coated nuts", "Marzipan sweets"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 5,
+                "question": "Which cheese is the Netherlands famous for exporting in large wheels?",
+                "options": ["Cheddar", "Gouda", "Brie", "Emmental"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            }
+        ],
+        "World Foods": [
+            {
+                "id": 1,
+                "question": "Which country is sushi traditionally associated with?",
+                "options": ["China", "Japan", "Korea", "Thailand"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 2,
+                "question": "What is 'taco' originally from?",
+                "options": ["Spain", "Mexico", "Peru", "Argentina"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 3,
+                "question": "Which dish is a staple of Indian cuisine and often includes lentils or vegetables served with rice?",
+                "options": ["Paella", "Curry", "Sushi", "Goulash"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 4,
+                "question": "Which country is famous for the dish 'poutine' (fries topped with cheese curds and gravy)?",
+                "options": ["United States", "Canada", "Australia", "France"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 5,
+                "question": "Which Middle Eastern spread is made primarily from chickpeas?",
+                "options": ["Baba ganoush", "Hummus", "Muhammara", "Tahini"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            }
+        ],
+        "Dutch Festivals & Traditions": [
+            {
+                "id": 1,
+                "question": "What is the orange-themed national celebration in the Netherlands called?",
+                "options": ["Sinterklaas", "Koningsdag (King's Day)", "Bevrijdingsdag", "Prinsjesdag"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10,
+                "explanation": "Koningsdag is celebrated with street markets, music, and lots of orange — the national color."
+            },
+            {
+                "id": 2,
+                "question": "Who traditionally arrives by steamboat during the Sinterklaas festivities?",
+                "options": ["Santa Claus", "Sinterklaas", "Saint Nicholas' Helper", "Piet Hein"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 3,
+                "question": "What unique Dutch activity involves trading or selling on the streets during national celebrations?",
+                "options": ["Free market (vrijmarkt)", "King's auction", "Street carnival", "Floating market"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 4,
+                "question": "Which traditional event commemorates the end of winter with bonfires and parades in some Dutch towns?",
+                "options": ["Carnival", "Vogelenzang", "Vastelaovend", "Vastenavond"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 5,
+                "question": "Which date is celebrated as Liberation Day (Bevrijdingsdag) in the Netherlands?",
+                "options": ["April 25", "May 5", "May 1", "June 6"],
+                "correct": 1,
+                "difficulty": "easy",
+                "points": 10
+            }
+        ]
     }
 }
