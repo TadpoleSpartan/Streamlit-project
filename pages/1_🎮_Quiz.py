@@ -36,7 +36,9 @@ def save_highscore(name, score, category, correct, total):
         "category": category,
         "correct_answers": correct,
         "total_questions": total,
-        "date": datetime.now().isoformat()
+        "date": datetime.now().isoformat(),
+        "achievements": st.session_state.get("achievements", []),
+        "difficulty": st.session_state.get("selected_difficulty", "Medium")
     }
 
     data["scores"].append(new_entry)

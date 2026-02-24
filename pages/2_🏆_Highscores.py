@@ -45,10 +45,29 @@ else:
     tab1, tab2 = st.tabs(["Global Leaderboard", "My Stats"])
     
     with tab1:
-        st.markdown('<p style="color: #6b7684; margin-bottom: 24px;">Top performers across all categories</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color: #6b7684; margin-bottom: 12px;">Top performers across all categories</p>', unsafe_allow_html=True)
+        # Filters
+        fcol1, fcol2, fcol3 = st.columns([3,2,1])
+        with fcol1:
+            search_name = st.text_input("Search player name", value="")
+        with fcol2:
+            categories = sorted(list({s.get('category','Unknown') for s in scores})) if scores else []
+            sel_cat = st.selectbox("Filter by category", options=["All"] + categories, index=0)
+        with fcol3:
+            if st.button("Clear", use_container_width=True):
+                search_name = ""
+                sel_cat = "All"
+                st.experimental_rerun()
         
-        if scores:
-            df = pd.DataFrame(scores)
+        # Apply filters
+        filtered = scores
+        if search_name:
+            filtered = [s for s in filtered if search_name.lower() in s.get('name','').lower()]
+        if sel_cat and sel_cat != "All":
+            filtered = [s for s in filtered if s.get('category') == sel_cat]
+        
+        if filtered:
+            df = pd.DataFrame(filtered)
             if "date" in df.columns:
                 df["date"] = pd.to_datetime(df["date"]).dt.strftime("%m/%d %H:%M")
 
@@ -67,7 +86,7 @@ else:
 
             st.markdown("---")
             st.markdown("### Top Players")
-            top_3 = scores[:3]
+            top_3 = filtered[:3]
             cols = st.columns(3)
             for i, s in enumerate(top_3):
                 with cols[i]:
@@ -83,6 +102,9 @@ else:
 
             st.markdown("---")
             st.markdown("### All Scores")
+            # show achievements column if present
+            if 'achievements' in df.columns:
+                df['Achievements'] = df['achievements'].apply(lambda a: ', '.join(a) if isinstance(a, list) else '')
             st.dataframe(df, use_container_width=True, hide_index=True)
             # Export options for admins / download
             try:
