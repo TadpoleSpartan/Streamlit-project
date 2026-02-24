@@ -63,6 +63,13 @@ with col2:
     st.write("")
     if st.session_state.player_name:
         st.markdown(f"<div class='stat-pill' style='background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #3fb950; font-weight: 600;'>✓ {st.session_state.player_name}</div>", unsafe_allow_html=True)
+        # Level display and controls
+        lvl = st.session_state.get("level", 1)
+        st.markdown(f"<div style='margin-top:8px;'><span class='badge'>Level {lvl}</span></div>", unsafe_allow_html=True)
+        if st.button("Reset Level", key="reset_level_btn"):
+            st.session_state.level = 1
+            st.success("Level reset to 1")
+        st.session_state.level_mode = st.checkbox("Enable Level Progression", value=st.session_state.get("level_mode", True))
 
 st.markdown("---")
 

@@ -38,7 +38,8 @@ def save_highscore(name, score, category, correct, total):
         "total_questions": total,
         "date": datetime.now().isoformat(),
         "achievements": st.session_state.get("achievements", []),
-        "difficulty": st.session_state.get("selected_difficulty", "Medium")
+        "difficulty": st.session_state.get("selected_difficulty", "Medium"),
+        "level": st.session_state.get("level", 1)
     }
 
     data["scores"].append(new_entry)
@@ -52,6 +53,9 @@ def init_session_state():
         "player_name": "",
         "selected_category": None,
         "selected_difficulty": "Medium",
+        "level": 1,
+        "max_level": 5,
+        "level_mode": True,
         "game_active": False,
         "current_question_index": 0,
         "score": 0,
@@ -83,18 +87,38 @@ def start_game():
         st.error("Please select a valid category on Home or Categories page.")
         return
 
-    questions = data["categories"][cat].copy()
-    
-    # Filter by difficulty if not "Mixed"
-    if st.session_state.selected_difficulty != "Mixed":
-        difficulty_map = {"Easy": "easy", "Medium": "medium", "Hard": "hard"}
-        target_difficulty = difficulty_map.get(st.session_state.selected_difficulty, "medium")
-        questions = [q for q in questions if q.get("difficulty", "medium").lower() == target_difficulty]
-        
-        # If no questions at that difficulty, use all
+    questions_all = data["categories"][cat].copy()
+    level = st.session_state.get("level", 1)
+    max_level = st.session_state.get("max_level", 5)
+
+    if st.session_state.get("level_mode", True):
+        # Define level -> allowed difficulties and question counts
+        level_cfg = {
+            1: {"difficulties": ["easy"], "num_q": 5},
+            2: {"difficulties": ["easy", "medium"], "num_q": 6},
+            3: {"difficulties": ["medium"], "num_q": 7},
+            4: {"difficulties": ["medium", "hard"], "num_q": 8},
+            5: {"difficulties": ["hard"], "num_q": 10}
+        }
+        cfg = level_cfg.get(min(level, max_level), level_cfg[1])
+        allowed = cfg.get("difficulties", ["medium"]) 
+        # filter by allowed difficulties
+        questions = [q for q in questions_all if q.get("difficulty", "medium").lower() in allowed]
         if not questions:
-            questions = data["categories"][cat].copy()
-    
+            questions = questions_all.copy()
+        # limit number of questions for this level
+        if cfg.get("num_q"):
+            questions = questions[: cfg["num_q"]]
+    else:
+        questions = questions_all.copy()
+        # Filter by difficulty if not "Mixed"
+        if st.session_state.selected_difficulty != "Mixed":
+            difficulty_map = {"Easy": "easy", "Medium": "medium", "Hard": "hard"}
+            target_difficulty = difficulty_map.get(st.session_state.selected_difficulty, "medium")
+            questions = [q for q in questions if q.get("difficulty", "medium").lower() == target_difficulty]
+            if not questions:
+                questions = questions_all.copy()
+
     random.shuffle(questions)
 
     st.session_state.questions = questions
@@ -170,6 +194,11 @@ def show_question():
     questions = st.session_state.questions
     idx = st.session_state.current_question_index
     q = questions[idx]
+
+    # Show current level when level progression is active
+    if st.session_state.get("level_mode", False):
+        lvl = st.session_state.get("level", 1)
+        st.markdown(f"<div style='margin-bottom:8px;'><span class='badge'>Level {lvl}</span></div>", unsafe_allow_html=True)
 
     # header metrics with custom styling
     st.markdown("""
@@ -457,19 +486,38 @@ def show_results():
     if pct >= 90:
         st.balloons()
 
+    # Level progression: pass if >=70% (configurable)
+    passed = pct >= 70
+    current_level = st.session_state.get("level", 1)
+    max_level = st.session_state.get("max_level", 5)
+
     st.markdown("---")
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
+    level_col1, level_col2, level_col3 = st.columns([1, 1, 1])
+    with level_col1:
         if st.button("↻ Try Again", key="play_again_btn", use_container_width=True):
+            # replay same level/category
             start_game()
             st.rerun()
-    with col2:
-        if st.button("→ Next Category", key="change_category_btn", use_container_width=True):
-            st.session_state.show_result = False
-            st.session_state.game_active = False
-            st.session_state.selected_category = None
-            st.rerun()
-    with col3:
+    with level_col2:
+        if st.session_state.get("level_mode", True):
+            if passed and current_level < max_level:
+                if st.button(f"Level Up → (Go to Level {current_level+1})", key="level_up_btn", use_container_width=True):
+                    st.session_state.level = current_level + 1
+                    # keep same category but start next level
+                    start_game()
+                    st.rerun()
+            else:
+                if not passed:
+                    st.info(f"You needed 70% to level up. Try again to reach Level {current_level+1}.")
+                else:
+                    st.success("You've reached the maximum level! Great job.")
+        else:
+            if st.button("→ Next Category", key="change_category_btn", use_container_width=True):
+                st.session_state.show_result = False
+                st.session_state.game_active = False
+                st.session_state.selected_category = None
+                st.rerun()
+    with level_col3:
         if st.button("⌂ Home", key="home_from_results_btn", use_container_width=True):
             st.session_state.show_result = False
             st.session_state.game_active = False
