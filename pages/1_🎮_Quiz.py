@@ -65,7 +65,8 @@ def init_session_state():
         "time_start": None,
         "total_time": 0,
         "achievements": [],
-        "sound_effects": False
+        "sound_effects": False,
+        "last_result": None
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -121,6 +122,7 @@ def check_answer(selected_index: int):
     base = q.get("points", 10)
 
     if selected_index == correct:
+        st.session_state.last_result = "correct"
         earned = int(base * st.session_state.multiplier)
         st.session_state.score += earned
         st.session_state.correct_answers += 1
@@ -134,6 +136,7 @@ def check_answer(selected_index: int):
             st.session_state.multiplier = 1.0
         return True
     else:
+        st.session_state.last_result = "wrong"
         st.session_state.current_streak = 0
         st.session_state.multiplier = 1.0
         return False
@@ -322,6 +325,30 @@ def show_question():
             next_question()
             st.rerun()
 
+        # Play sound for last answer if enabled (simple WebAudio tone)
+        if st.session_state.get("sound_effects") and st.session_state.get("last_result"):
+            tone = '440' if st.session_state.last_result == 'correct' else '220'
+            st.markdown(f"""
+            <script>
+            try {{
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const o = ctx.createOscillator();
+                const g = ctx.createGain();
+                o.type = 'sine';
+                o.frequency.value = {tone};
+                o.connect(g);
+                g.connect(ctx.destination);
+                g.gain.setValueAtTime(0.0001, ctx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.01);
+                o.start();
+                g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
+                o.stop(ctx.currentTime + 0.26);
+            }} catch(e) {{}}
+            </script>
+            """, unsafe_allow_html=True)
+            # reset last_result to avoid repeating
+            st.session_state.last_result = None
+
 def show_results():
     total = len(st.session_state.questions)
     correct = st.session_state.correct_answers
@@ -408,6 +435,22 @@ def show_results():
                     <div style='font-size: 12px; font-weight: 600; color: var(--accent-light);'>{achievement}</div>
                 </div>
                 """, unsafe_allow_html=True)
+    # Share your result (copy to clipboard)
+    share_text = f"I scored {score} points ({int(pct)}%) on {st.session_state.get('selected_category','a quiz')} - Netherlands QuizMaster!"
+    st.markdown("---")
+    st.markdown(f"<div style='display:flex; gap:8px;'>", unsafe_allow_html=True)
+    st.markdown(f"<button id='copyScore' style='background: var(--accent); color: white; padding:10px 12px; border-radius:6px; border:none;'>Share Score</button>", unsafe_allow_html=True)
+    st.markdown(f"<a href='data:text/plain;charset=utf-8,{share_text}' download='quiz-result.txt' style='background: transparent; border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:6px; color: #c9d1d9; text-decoration:none;'>Download Summary</a>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+    share_text_js = json.dumps(share_text)
+    st.markdown(f"""
+    <script>
+    const text = {share_text_js};
+    document.getElementById('copyScore').addEventListener('click', function() {{
+        try {{ navigator.clipboard.writeText(text); alert('Copied result to clipboard!'); }} catch(e) {{ prompt('Copy the text below:', text); }}
+    }});
+    </script>
+    """, unsafe_allow_html=True)
     
     if pct >= 90:
         st.balloons()

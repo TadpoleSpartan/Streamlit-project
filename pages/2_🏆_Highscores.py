@@ -2,6 +2,8 @@ import streamlit as st
 import json
 from pathlib import Path
 import pandas as pd
+import plotly.express as px
+import io
 
 st.set_page_config(page_title="Highscores - Netherlands QuizMaster", page_icon="🏆")
 
@@ -82,6 +84,13 @@ else:
             st.markdown("---")
             st.markdown("### All Scores")
             st.dataframe(df, use_container_width=True, hide_index=True)
+            # Export options for admins / download
+            try:
+                csv_all = df.drop(columns=[c for c in df.columns if c == 'Rank']).to_csv(index=False).encode('utf-8')
+                st.download_button("Download All Scores (CSV)", data=csv_all, file_name="all_scores.csv", mime="text/csv")
+                st.download_button("Download All Scores (JSON)", data=json.dumps(scores, indent=2), file_name="all_scores.json", mime="application/json")
+            except Exception:
+                pass
 
             st.markdown("---")
             st.markdown("### Statistics")
@@ -154,6 +163,35 @@ else:
                 total_questions = sum(s.get("total_questions", 0) for s in player_scores)
                 accuracy = (total_correct / total_questions * 100) if total_questions > 0 else 0
                 st.metric("Accuracy", f"{accuracy:.0f}%")
+
+            # Charts and export for personal history
+            st.markdown("---")
+            st.markdown("### Performance Over Time")
+            player_df = pd.DataFrame(player_scores)
+            if not player_df.empty:
+                if "date" in player_df.columns:
+                    player_df["date"] = pd.to_datetime(player_df["date"]) 
+                    player_df = player_df.sort_values("date")
+                else:
+                    player_df["date"] = range(len(player_df))
+
+                # Line chart for scores over time
+                try:
+                    fig = px.line(player_df, x="date", y="score", markers=True, title="Score Over Time")
+                    st.plotly_chart(fig, use_container_width=True)
+                except Exception:
+                    st.line_chart(player_df["score"])
+
+                # Category distribution
+                try:
+                    fig2 = px.pie(player_df, names="category", title="Category Distribution")
+                    st.plotly_chart(fig2, use_container_width=True)
+                except Exception:
+                    pass
+
+                # Export CSV
+                csv_bytes = player_df.to_csv(index=False).encode("utf-8")
+                st.download_button("Download My Scores (CSV)", data=csv_bytes, file_name="my_scores.csv", mime="text/csv")
             
             # Scores by category
             st.markdown("---")
