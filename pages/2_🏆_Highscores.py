@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import io
+from json_utils import safe_load_json
 
 st.set_page_config(page_title="Highscores - Netherlands QuizMaster", page_icon="🏆")
 
@@ -18,16 +19,58 @@ def load_css():
         st.markdown(f"<style>{css_path.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
 
 
+from json_utils import safe_load_json
+
 def load_highscores():
-    if HIGHSCORES_FILE.exists():
-        with open(HIGHSCORES_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            return data.get("scores", [])
-    return []
+    data = safe_load_json(HIGHSCORES_FILE, {"scores": []})
+    return data.get("scores", [])
 
 
 load_css()
-st.markdown('<h1 style="margin-bottom: 8px; font-weight: 600;">Leaderboard</h1>', unsafe_allow_html=True)
+st.markdown('<div class="container">', unsafe_allow_html=True)
+
+# Anthem control (Dutch national anthem)
+if "play_anthem" not in st.session_state:
+    st.session_state.play_anthem = False
+
+col_a, col_b = st.columns([3, 1])
+with col_a:
+    st.markdown(
+        '''
+        <div class="topbar">
+            <div class="brand">
+                <div class="logo">NQ</div>
+                <div>
+                    <div class="title">Netherlands QuizMaster</div>
+                    <div class="subtitle">Leaderboard & Stats</div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=Home'">🏠 Home</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=2_🏆_Highscores'">🏆 Leaderboard</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=3_📚_Categories'">📚 Categories</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=4_⚙️_Settings'">⚙️ Settings</button>
+            </div>
+        </div>
+        <div class="hero">
+            <h1>Leaderboard</h1>
+            <p>See top performers and track your personal progress.</p>
+        </div>
+        ''',
+        unsafe_allow_html=True,
+    )
+with col_b:
+    if st.button("🎶 Play Dutch Anthem", key="play_anthem_btn"):
+        st.session_state.play_anthem = True
+    if st.session_state.play_anthem:
+        st.markdown(
+            """
+            <audio autoplay hidden>
+              <source src='https://upload.wikimedia.org/wikipedia/commons/6/67/Het_Wilhelmus.ogg' type='audio/ogg'>
+            </audio>
+            """,
+            unsafe_allow_html=True,
+        )
 
 scores = load_highscores()
 
@@ -259,3 +302,5 @@ with col1:
 with col2:
     if st.button("📚 Categories", use_container_width=True):
         st.switch_page("pages/3_📚_Categories.py")
+
+st.markdown('</div>', unsafe_allow_html=True)

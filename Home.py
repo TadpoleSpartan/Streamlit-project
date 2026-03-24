@@ -2,6 +2,7 @@ import streamlit as st
 import json
 from pathlib import Path
 import random
+from json_utils import ensure_json_file, safe_load_json
 
 # Basic page setup
 st.set_page_config(page_title="Netherlands QuizMaster", page_icon="🎯", layout="wide")
@@ -10,6 +11,11 @@ ROOT = Path(__file__).parent
 DATA_DIR = ROOT / "data"
 QUESTIONS_FILE = DATA_DIR / "questions.json"
 
+# Initialize JSON files on app startup
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+ensure_json_file(QUESTIONS_FILE, {"categories": {}})
+ensure_json_file(DATA_DIR / "highscores.json", {"scores": []})
+
 
 def load_css():
     css_path = ROOT / "assets" / "styles.css"
@@ -17,11 +23,10 @@ def load_css():
         st.markdown(f"<style>{css_path.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
 
 
+from json_utils import safe_load_json
+
 def load_questions():
-    if QUESTIONS_FILE.exists():
-        with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"categories": {}}
+    return safe_load_json(QUESTIONS_FILE, {"categories": {}})
 
 
 def get_categories():
@@ -29,6 +34,13 @@ def get_categories():
 
 
 load_css()
+
+# Page container for consistent layout
+st.markdown('<div class="container">', unsafe_allow_html=True)
+# if editor signaled an update, notify
+if st.session_state.get("questions_updated"):
+    st.info("Questions database updated; new data will be used going forward.")
+    st.session_state.questions_updated = False
 
 # Session defaults
 if "player_name" not in st.session_state:
@@ -46,17 +58,40 @@ if "selected_difficulty" not in st.session_state:
 if "difficulty_selector_active" not in st.session_state:
     st.session_state.difficulty_selector_active = False
 
-st.markdown('<div class="header">')
-st.markdown('<div class="title">Netherlands QuizMaster</div>')
-st.markdown('<div class="subtitle">Test your knowledge on Dutch culture, history, and more</div>')
-st.markdown('</div>')
+st.markdown(
+        '''
+        <div class="topbar">
+            <div class="brand">
+                <div class="logo">🇳🇱</div>
+                <div>
+                    <div class="title">Netherlands QuizMaster</div>
+                    <div class="subtitle">Test your knowledge on Dutch culture, history, and more</div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=Home'">🏠 Home</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=2_🏆_Highscores'">🏆 Leaderboard</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=3_📚_Categories'">📚 Categories</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=4_⚙️_Settings'">⚙️ Settings</button>
+                <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=6_💬_Chat'">💬 Chat</button>
+            </div>
+        </div>
+        <div class="hero">
+            <h1>Sharpen your knowledge of the Netherlands</h1>
+            <p>Engaging quizzes, progress tracking, and meaningful achievements — built to help you learn.</p>
+        </div>
+        ''',
+        unsafe_allow_html=True,
+)
+
+st.markdown('<div class="flag-stripe"></div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
 # Player input section
 col1, col2 = st.columns([3, 1])
 with col1:
-    name = st.text_input("", value=st.session_state.player_name, placeholder="Enter your name to start", label_visibility="collapsed")
+    name = st.text_input("Your name", value=st.session_state.player_name, placeholder="Enter your name to start", label_visibility="collapsed")
     if name:
         st.session_state.player_name = name
 with col2:
@@ -99,7 +134,7 @@ if categories:
                 if st.button(f"{diff_icon} {diff}", use_container_width=True, key=f"diff_{diff}"):
                     st.session_state.selected_difficulty = diff
                     st.session_state.total_games += 1
-                    st.balloon()
+                    st.balloons()
                     st.switch_page("pages/1_🎮_Quiz.py")
         
         st.markdown("---")
@@ -159,6 +194,8 @@ with col4:
         - ⏱️ Timed questions with bonus points
         - 💡 Hints and skip power-ups
         - 🎖️ Achievement system
+        - 🤖 AI-generated custom quizzes
+        - 💬 Chat with stereotypical Dutch AI
         
         **Tips:**
         - Try higher difficulties for more points
@@ -166,5 +203,8 @@ with col4:
         - Use hints strategically
         - Check your stats page to track progress
         """)
+
+    # close page container
+    st.markdown('</div>', unsafe_allow_html=True)
 
 

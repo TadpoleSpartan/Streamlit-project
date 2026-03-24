@@ -35,9 +35,41 @@
                 "points": 10
             },
             {
-                "id": 5,
-                "question": "What percentage of the Netherlands lies below sea level?",
-                "options": ["About 15%", "About 26%", "About 40%", "About 50%"],
+                "id": 6,
+                "question": "What is the name of the largest natural park in the Netherlands?",
+                "options": ["Hoge Veluwe", "Veluwezoom", "Sallandse Heuvelrug", "Utrechtse Heuvelrug"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "Which Dutch province is known for its extensive tulip fields?",
+                "options": ["North Holland", "South Holland", "Flevoland", "Zeeland"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 8,
+                "question": "What is the highest point in the Netherlands?",
+                "options": ["Vaalserberg", "Sint-Pietersberg", "Limburgse Heuvels", "Utrechtse Heuvelrug"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Which river forms part of the border between the Netherlands and Germany?",
+                "options": ["Rhine", "Meuse", "Scheldt", "Ijssel"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "What is the population density of the Netherlands approximately?",
+                "options": ["400 people/km²", "500 people/km²", "600 people/km²", "700 people/km²"],
                 "correct": 1,
                 "difficulty": "hard",
                 "points": 20
@@ -77,12 +109,44 @@
                 "points": 20
             },
             {
-                "id": 5,
-                "question": "What is the primary mode of transportation in Dutch cities?",
-                "options": ["Cars", "Bicycles", "Trains", "Trams"],
-                "correct": 1,
-                "difficulty": "easy",
-                "points": 10
+                "id": 6,
+                "question": "What is the name of the famous Dutch windmill that symbolizes the country's history?",
+                "options": ["De Gooyer", "De Adriaan", "De Valk", "De Liefde"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "Which Dutch explorer is credited with discovering Australia?",
+                "options": ["Abel Tasman", "Willem Janszoon", "Dirk Hartog", "Jan Pieterszoon Coen"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 8,
+                "question": "What is the traditional Dutch art of painting called that often depicts landscapes?",
+                "options": ["Baroque", "Impressionism", "Dutch Golden Age", "Romanticism"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Which Dutch city is known for its cheese market?",
+                "options": ["Gouda", "Edam", "Alkmaar", "Haarlem"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "What is the name of the Dutch resistance movement during WWII?",
+                "options": ["White Rose", "Red Orchestra", "Dutch Underground", "Resistance Netherlands"],
+                "correct": 3,
+                "difficulty": "hard",
+                "points": 20
             }
         ],
         "Famous Dutch People": [
@@ -98,7 +162,7 @@
                 "id": 2,
                 "question": "Who was the Dutch philosopher known for his rationalist philosophy and the phrase 'Cogito ergo sum'?",
                 "options": ["Spinoza", "Erasmus", "Descartes", "Locke"],
-                "correct": 0,
+                "correct": 2,
                 "difficulty": "hard",
                 "points": 20
             },
@@ -119,14 +183,46 @@
                 "points": 10
             },
             {
-                "id": 5,
-                "question": "Which Dutch explorer founded New Amsterdam (now New York) in North America?",
-                "options": ["Willem Janszoon", "Henry Hudson", "Abel Tasman", "Bartolomeu Dias"],
+                "id": 6,
+                "question": "Which Dutch scientist is known for his work on the pendulum clock and the law of falling bodies?",
+                "options": ["Christiaan Huygens", "Antonie van Leeuwenhoek", "Willebrord Snellius", "Simon van der Meer"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "Who was the Dutch admiral who defeated the Spanish Armada in 1588?",
+                "options": ["Michiel de Ruyter", "Maarten Tromp", "Piet Hein", "Jan Pieterszoon Coen"],
                 "correct": 1,
                 "difficulty": "hard",
                 "points": 20
+            },
+            {
+                "id": 8,
+                "question": "Which Dutch author wrote 'The Diary of a Young Girl'?",
+                "options": ["Anne Frank", "Harry Mulisch", "Cees Nooteboom", "Gerard Reve"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Who is the Dutch footballer who won the European Cup Winners' Cup with Ajax in 1987?",
+                "options": ["Marco van Basten", "Ruud Gullit", "Dennis Bergkamp", "Frank Rijkaard"],
+                "correct": 3,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "Which Dutch composer is known for his opera 'Dido and Aeneas'?",
+                "options": ["Henry Purcell", "Johann Sebastian Bach", "George Frideric Handel", "Antonio Vivaldi"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
             }
-        ]
+        ],
         "Dutch Food": [
             {
                 "id": 1,
@@ -163,12 +259,44 @@
                 "points": 10
             },
             {
-                "id": 5,
-                "question": "Which cheese is the Netherlands famous for exporting in large wheels?",
-                "options": ["Cheddar", "Gouda", "Brie", "Emmental"],
-                "correct": 1,
-                "difficulty": "easy",
-                "points": 10
+                "id": 6,
+                "question": "What is the name of the Dutch soup made with green split peas?",
+                "options": ["Erwtensoep", "Groentesoep", "Uiensoep", "Tomatensoep"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "Which spice is prominently used in Dutch speculaas cookies?",
+                "options": ["Cinnamon", "Nutmeg", "Cardamom", "Ginger"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 8,
+                "question": "What is 'Drop' in Dutch cuisine?",
+                "options": ["Licorice candy", "Fruit syrup", "Herbal tea", "Cheese spread"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Which Dutch pastry is filled with almond paste and covered in sugar?",
+                "options": ["Banketstaaf", "Bossche bol", "Tompouce", "Moorkop"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "What is the traditional Dutch drink made from fermented grain?",
+                "options": ["Jenever", "Bier", "Wijn", "Koffie"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
             }
         ],
         "World Foods": [
@@ -205,12 +333,44 @@
                 "points": 15
             },
             {
-                "id": 5,
-                "question": "Which Middle Eastern spread is made primarily from chickpeas?",
-                "options": ["Baba ganoush", "Hummus", "Muhammara", "Tahini"],
+                "id": 6,
+                "question": "Which Italian dish consists of thin pasta sheets layered with meat sauce and béchamel?",
+                "options": ["Lasagna", "Cannelloni", "Ravioli", "Tortellini"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "What is the national dish of Hungary?",
+                "options": ["Pierogi", "Goulash", "Schnitzel", "Ratatouille"],
                 "correct": 1,
-                "difficulty": "easy",
-                "points": 10
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 8,
+                "question": "Which French pastry is made with layers of puff pastry and almond cream?",
+                "options": ["Éclair", "Croissant", "Mille-feuille", "Galette des Rois"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "What is 'Kimchi' a traditional fermented dish from?",
+                "options": ["Japan", "China", "Korea", "Vietnam"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "Which Mexican dish is made with corn tortillas filled with meat and topped with salsa?",
+                "options": ["Enchiladas", "Quesadillas", "Burritos", "Fajitas"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
             }
         ],
         "Dutch Festivals & Traditions": [
@@ -248,12 +408,363 @@
                 "points": 20
             },
             {
+                "id": 6,
+                "question": "What is the name of the Dutch festival where people dress in white and black face paint to honor Sinterklaas?",
+                "options": ["Zwarte Piet", "Sint en Piet", "Pakjesavond", "Intocht"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 7,
+                "question": "Which Dutch tradition involves throwing furniture out of windows during Prinsjesdag?",
+                "options": ["Meubelgooien", "Stoelendans", "Bankwerpen", "Tafelwerpen"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 8,
+                "question": "What is 'Elfstedentocht', a famous Dutch winter event?",
+                "options": ["Ice skating marathon", "Ski race", "Snow festival", "Winter parade"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Which Dutch city hosts the largest flower parade in the world?",
+                "options": ["Amsterdam", "Rotterdam", "Haarlem", "Noordwijk"],
+                "correct": 3,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 10,
+                "question": "What is the traditional Dutch New Year's Eve firework display called?",
+                "options": ["Oudejaarsavond", "Vuurwerkshow", "Nieuwejaarsvuur", "Wintervuur"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            }
+        ],
+        "Dutch History": [
+            {
+                "id": 1,
+                "question": "Which 17th-century period is known as the Dutch Golden Age due to trade, science, and art flourishing?",
+                "options": ["15th century", "16th century", "17th century", "18th century"],
+                "correct": 2,
+                "difficulty": "easy",
+                "points": 10,
+                "explanation": "The 17th century is commonly referred to as the Dutch Golden Age, when the Dutch Republic was a leading economic and cultural power."
+            },
+            {
+                "id": 2,
+                "question": "Who led the Dutch revolt against Spanish rule that contributed to the independence of the Dutch Republic?",
+                "options": ["William of Orange", "Johan de Witt", "Maurice of Nassau", "Pieter Bruegel"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 3,
+                "question": "Which peace treaty in 1648 officially recognized the independence of the Dutch Republic from Spain?",
+                "options": ["Treaty of Utrecht", "Treaty of Westphalia", "Treaty of Versailles", "Treaty of Ghent"],
+                "correct": 1,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 4,
+                "question": "The Dutch East India Company, often abbreviated VOC, was founded in which year?",
+                "options": ["1602", "1621", "1588", "1648"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
                 "id": 5,
-                "question": "Which date is celebrated as Liberation Day (Bevrijdingsdag) in the Netherlands?",
-                "options": ["April 25", "May 5", "May 1", "June 6"],
+                "question": "Which city was the commercial heart of the Dutch Golden Age and home to the famous stock exchange?",
+                "options": ["Rotterdam", "The Hague", "Amsterdam", "Leiden"],
+                "correct": 2,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 6,
+                "question": "Which artist painted 'Night Watch', one of the most famous works from the Dutch Golden Age?",
+                "options": ["Rembrandt van Rijn", "Johannes Vermeer", "Frans Hals", "Jan van Goyen"],
+                "correct": 0,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 7,
+                "question": "Which naval battle in 1665–1667 involved notable clashes between England and the Dutch Republic?",
+                "options": ["Battle of Solebay", "Anglo-Dutch Wars", "Battle of Trafalgar", "Nine Years' War"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20,
+                "explanation": "The Anglo-Dutch Wars were a series of 17th- and 18th-century naval conflicts between England and the Dutch Republic."
+            },
+            {
+                "id": 8,
+                "question": "Who was the influential Dutch jurist and philosopher of the 17th century known for 'Ethics'?",
+                "options": ["Hugo Grotius", "Baruch Spinoza", "Erasmus", "Grotius"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 9,
+                "question": "Which 19th-century event led to the establishment of the Kingdom of the Netherlands under King William I?",
+                "options": ["Congress of Vienna", "Treaty of Paris", "Belgian Revolution", "Napoleonic Wars"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 10,
+                "question": "Which Dutch admiral is famous for capturing the Spanish treasure fleet during the 17th century?",
+                "options": ["Piet Hein", "Michiel de Ruyter", "Maarten Tromp", "Jacob van Heemskerck"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 11,
+                "question": "What was the political system of the Dutch Republic primarily called in the 17th century?",
+                "options": ["Monarchy", "Republic", "Confederation of Provinces", "Empire"],
+                "correct": 2,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 12,
+                "question": "Which treaty in 1815 reshaped the Low Countries after the Napoleonic Wars and led to the United Kingdom of the Netherlands?",
+                "options": ["Treaty of Utrecht", "Congress of Vienna accords", "Treaty of Tilsit", "Treaty of Amiens"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 13,
+                "question": "Which Dutch city was the center of the 16th-century textile industry and home to many refugees during the Eighty Years' War?",
+                "options": ["Leiden", "Eindhoven", "Groningen", "Maastricht"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 14,
+                "question": "Who was the Dutch statesman that led the country during the 'Rampjaar' (Disaster Year) of 1672?",
+                "options": ["Johan de Witt", "Pieter de Groot", "Willem of Orange", "Maurice of Nassau"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20,
+                "explanation": "Johan de Witt was the Grand Pensionary who played a key role in Dutch politics before being overthrown during the Rampjaar."
+            },
+            {
+                "id": 15,
+                "question": "Which colony was founded by the Dutch in the East Indies and later became Indonesia?",
+                "options": ["New Amsterdam", "Ceylon", "Dutch East Indies", "Surinam"],
+                "correct": 2,
+                "difficulty": "easy",
+                "points": 10
+            },
+            {
+                "id": 16,
+                "question": "Which 20th-century event occupied the Netherlands from 1940 to 1945?",
+                "options": ["World War I", "World War II (Nazi occupation)", "The Cold War", "The Franco-Prussian War"],
                 "correct": 1,
                 "difficulty": "easy",
                 "points": 10
+            },
+            {
+                "id": 17,
+                "question": "Which Dutch resistance member is famous for hiding Anne Frank and her family?",
+                "options": ["Miep Gies", "Corrie ten Boom", "Hannie Schaft", "Truus Wijsmuller"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 18,
+                "question": "Which Dutch admiral led daring raids against the English and was later instrumental in the Raid on the Medway (1667)?",
+                "options": ["Michiel de Ruyter", "Piet Hein", "Maarten Tromp", "Witte de With"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 19,
+                "question": "Which legal scholar from the Haga area wrote foundational work on international law in the early 17th century?",
+                "options": ["Hugo Grotius (Grotius)", "Johannes Althusius", "Baruch Spinoza", "Cornelius van Bynkershoek"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 20,
+                "question": "Which famous Dutch explorer charted parts of Australia and New Zealand for the Dutch East India Company?",
+                "options": ["Abel Tasman", "Willem Barentsz", "Dirk Hartog", "Jacob Roggeveen"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 21,
+                "question": "Which event in 1830 changed the political map of the Low Countries by creating a separate neighboring state?",
+                "options": ["Belgian Revolution", "Belgian Declaration", "Franco-Dutch Treaty", "Treaty of London"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 22,
+                "question": "Which sea barrier system, begun in the 20th century, protects large parts of the Netherlands from flooding?",
+                "options": ["The Delta Works", "Afsluitdijk", "Zuiderzee Works", "Maeslantkering"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 23,
+                "question": "Which 16th-century humanist from Rotterdam wrote 'Praise of Folly' and influenced European thought?",
+                "options": ["Desiderius Erasmus", "Thomas More", "Niccolò Machiavelli", "Francis Bacon"],
+                "correct": 0,
+                "difficulty": "medium",
+                "points": 15
+            },
+            {
+                "id": 25,
+                "question": "Which Dutch queen abdicated in 2013 after a 33-year reign?",
+                "options": ["Beatrix", "Juliana", "Wilhelmina", "Emma"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 26,
+                "question": "What was the name of the Dutch resistance newspaper during WWII?",
+                "options": ["Het Parool", "De Telegraaf", "NRC Handelsblad", "Volkskrant"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 27,
+                "question": "Which Dutch city was heavily bombed in 1940 during the German invasion?",
+                "options": ["Rotterdam", "Amsterdam", "The Hague", "Utrecht"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 28,
+                "question": "Who was the Dutch prime minister during the Hunger Winter of 1944-1945?",
+                "options": ["Pieter Sjoerds Gerbrandy", "Willem Drees", "Hendrikus Colijn", "Dirk Jan de Geer"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 29,
+                "question": "Which treaty in 1713 ended the War of the Spanish Succession and affected Dutch interests?",
+                "options": ["Treaty of Utrecht", "Treaty of Rastatt", "Treaty of Baden", "Peace of Westphalia"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            },
+            {
+                "id": 30,
+                "question": "What was the economic boom period in the Netherlands during the 17th century known as?",
+                "options": ["Dutch Golden Age", "Age of Exploration", "Industrial Revolution", "Colonial Era"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 20
+            }
+        ],
+        "Hardest Dutch Quiz": [
+            {
+                "id": 1,
+                "question": "What is the name of the 1717 Dutch naval mutiny led by mariner Cornelis Lely?",
+                "options": ["The Batavian Revolt", "The Amsterdam Mutiny", "The Vlie Mutiny", "The Texel Rebellion"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 2,
+                "question": "Which Dutch astronomer published the 'Astronomia Nova' in 1609 and refined Kepler's laws?",
+                "options": ["Eise Eisinga", "Willebrord Snellius", "Christiaan Huygens", "Jan Hendrik Oort"],
+                "correct": 3,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 3,
+                "question": "In Dutch linguistics, what is the term for the phenomenon where 's' is pronounced like 'sh' in some dialects?",
+                "options": ["R-rot", "G-heffing", "Schwa dropping", "S-debuccalization"],
+                "correct": 3,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 4,
+                "question": "Which Dutch colony was briefly established in California in 1613?",
+                "options": ["New Amsterdam", "Fort Nassau", "Zwaanendael", "Zuytdorp"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 5,
+                "question": "What is the name of the Dutch tax on salt that triggered riots in 1748?",
+                "options": ["Zoutbelasting", "Pachtbelasting", "Gabelle", "Staatsschat"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 6,
+                "question": "Which Dutch painter created 'The Night Watch' and is buried in the Westerkerk?",
+                "options": ["Jan Vermeer", "Rembrandt van Rijn", "Frans Hals", "Pieter de Hooch"],
+                "correct": 1,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 7,
+                "question": "What is the name of the rare Dutch dialect spoken on the island of Schiermonnikoog?",
+                "options": ["West Frisian", "Midsland Dutch", "Schiermonnikoogs", "Texels"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 8,
+                "question": "Which Dutch mathematician invented the coordinate plane and analytic geometry?",
+                "options": ["Gerardus Mercator", "Dirk Jan Struik", "Rene Descartes", "Christiaan Huygens"],
+                "correct": 2,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 9,
+                "question": "What is the name of the municipal law enacted in 1921 that gave Dutch women the right to vote?",
+                "options": ["Kiesrechtwet", "Vrouwenwet", "Algemeen Stemmecht", "Burgerwet"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 25
+            },
+            {
+                "id": 10,
+                "question": "Which Dutch engineer led the design of the Zuiderzee Works, completed in 1932?",
+                "options": ["Cornelis Lely", "Jan Blanken", "Pieter Caland", "Willem Ploeg"],
+                "correct": 0,
+                "difficulty": "hard",
+                "points": 25
             }
         ]
     }

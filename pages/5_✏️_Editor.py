@@ -14,17 +14,21 @@ st.markdown("<h1 style='margin-bottom:8px;'>Question Editor</h1>", unsafe_allow_
 
 # Helpers
 
+from json_utils import safe_load_json
+
 def load_questions():
-    if QUESTIONS_FILE.exists():
-        with open(QUESTIONS_FILE, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return {"categories": {}}
+    return safe_load_json(QUESTIONS_FILE, {"categories": {}})
 
 
 def save_questions(data):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with open(QUESTIONS_FILE, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        with open(QUESTIONS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        return True
+    except Exception as e:
+        st.error(f"Error saving questions: {e}")
+        return False
 
 
 data = load_questions()
@@ -46,8 +50,9 @@ with col2:
             st.warning("Category already exists")
         else:
             data.setdefault('categories', {})[new_cat] = []
-            save_questions(data)
-            st.success(f"Added category '{new_cat}'")
+            if save_questions(data):
+                st.success(f"Added category '{new_cat}'")
+                st.session_state['questions_updated'] = True
             st.experimental_rerun()
 
 st.markdown("---")
@@ -73,8 +78,9 @@ if cat:
             if st.button(f"Delete Q{idx+1}", key=f"del_{cat}_{idx}"):
                 qlist.pop(idx)
                 data['categories'][cat] = qlist
-                save_questions(data)
-                st.success("Question deleted")
+                if save_questions(data):
+                    st.success("Question deleted")
+                    st.session_state['questions_updated'] = True
                 st.experimental_rerun()
         with col_b:
             if st.button(f"Edit Q{idx+1}", key=f"edit_{cat}_{idx}"):
@@ -151,8 +157,9 @@ if cat:
                 if explanation.strip():
                     entry['explanation'] = explanation.strip()
                 data.setdefault('categories', {}).setdefault(cat, []).append(entry)
-                save_questions(data)
-                st.success("Question added")
+                if save_questions(data):
+                    st.success("Question added")
+                    st.session_state['questions_updated'] = True
                 st.experimental_rerun()
 
 st.markdown("---")

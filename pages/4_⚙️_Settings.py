@@ -9,6 +9,28 @@ CSS_FILE = ROOT / "assets" / "styles.css"
 if CSS_FILE.exists():
     st.markdown(f"<style>{CSS_FILE.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
 
+st.markdown(
+    '''
+    <div class="topbar">
+        <div class="brand">
+            <div class="logo">🇳🇱</div>
+            <div>
+                <div class="title">Netherlands QuizMaster</div>
+                <div class="subtitle">Settings</div>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=Home'">🏠 Home</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=2_🏆_Highscores'">🏆 Leaderboard</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=3_📚_Categories'">📚 Categories</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=4_⚙️_Settings'">⚙️ Settings</button>
+        </div>
+    </div>
+    <div class="flag-stripe"></div>
+    ''',
+    unsafe_allow_html=True,
+)
+
 st.markdown('<h1 style="margin-bottom: 8px; font-weight: 600;">Settings</h1>', unsafe_allow_html=True)
 st.markdown('<p style="color: #6b7684; margin-bottom: 24px;">Customize your quiz experience</p>', unsafe_allow_html=True)
 
@@ -67,12 +89,9 @@ if st.session_state.get("player_name"):
     DATA_DIR = ROOT / "data"
     HIGHSCORES_FILE = DATA_DIR / "highscores.json"
     
-    if HIGHSCORES_FILE.exists():
-        with open(HIGHSCORES_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            scores = data.get("scores", [])
-    else:
-        scores = []
+    from json_utils import safe_load_json
+    data = safe_load_json(HIGHSCORES_FILE, {"scores": []})
+    scores = data.get("scores", [])
     
     player_scores = [s for s in scores if s.get("name") == st.session_state.player_name]
     

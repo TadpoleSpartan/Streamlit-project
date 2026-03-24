@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 from pathlib import Path
+from json_utils import safe_load_json
 
 st.set_page_config(page_title="Categories - Netherlands QuizMaster", page_icon="📚", layout="wide")
 
@@ -15,14 +16,40 @@ def load_css():
         st.markdown(f"<style>{css_path.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
 
 
+from json_utils import safe_load_json
+
 def load_questions():
-    if QUESTIONS_FILE.exists():
-        with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"categories": {}}
+    return safe_load_json(QUESTIONS_FILE, {"categories": {}})
 
 
 load_css()
+
+st.markdown(
+    '''
+    <div class="topbar">
+        <div class="brand">
+            <div class="logo">🇳🇱</div>
+            <div>
+                <div class="title">Netherlands QuizMaster</div>
+                <div class="subtitle">Choose a category</div>
+            </div>
+        </div>
+        <div class="nav-links">
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=Home'">🏠 Home</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=2_🏆_Highscores'">🏆 Leaderboard</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=3_📚_Categories'">📚 Categories</button>
+            <button class="nav-link" onclick="window.location.href = window.location.origin + window.location.pathname + '?page=4_⚙️_Settings'">⚙️ Settings</button>
+        </div>
+    </div>
+    <div class="flag-stripe"></div>
+    ''',
+    unsafe_allow_html=True,
+)
+
+# notify when data updated
+if st.session_state.get("questions_updated"):
+    st.info("Question data changed; categories refreshed.")
+    st.session_state.questions_updated = False
 
 st.markdown("<h1 style='margin-bottom: 8px; font-weight: 600;'>Categories</h1>", unsafe_allow_html=True)
 st.markdown("<p style='color: #6b7684; margin-bottom: 24px;'>Choose a topic to test your knowledge</p>", unsafe_allow_html=True)
